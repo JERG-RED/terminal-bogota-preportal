@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal de Transporte de Bogotá - Portal Oficial</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            govNavy: '#0f2b5c',
+            govCyan: '#009fe3',
+            govYellow: '#ffcd00',
+            govRed: '#e30613',
+            govBg: '#f4f6fa'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(15, 43, 92, 0.95) 0%, rgba(0, 159, 227, 0.85) 100%),
+                  url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    }
+  </style>
+</head>
+<body class="bg-govBg font-sans text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- BARRA SUPERIOR INSTITUCIONAL GOV.CO -->
+  <div class="bg-[#3366cc] text-white text-xs py-1 px-4 flex justify-between items-center border-b border-blue-400">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <span class="font-bold tracking-wider uppercase text-[11px] bg-white text-[#3366cc] px-2 py-0.5 rounded font-black">GOV.CO</span>
+        <span class="hidden sm:inline text-slate-100">República de Colombia | Alcaldía Mayor de Bogotá</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="#transparencia" class="hover:underline flex items-center gap-1"><i class="fa-solid fa-scale-balanced"></i> Transparencia</a>
+        <a href="#atencion" class="hover:underline flex items-center gap-1"><i class="fa-solid fa-headset"></i> Atención al Ciudadano</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR PRINCIPAL -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <!-- Marca / Logo -->
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-lg bg-govNavy text-white flex items-center justify-center font-black text-xl shadow">
+          <i class="fa-solid fa-bus-simple text-govYellow"></i>
+        </div>
+        <div>
+          <span class="block font-black text-lg md:text-xl text-govNavy leading-tight tracking-tight uppercase">Terminal de Bogotá</span>
+          <span class="block text-[11px] text-govCyan font-semibold tracking-wide">Conectamos a Colombia</span>
+        </div>
+      </div>
+
+      <!-- Menú de Navegación -->
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-slate-700">
+        <a href="#buscador" class="hover:text-govCyan transition">Comprar Tiquetes</a>
+        <a href="#terminales" class="hover:text-govCyan transition">Nuestras Sedes</a>
+        <a href="#servicios" class="hover:text-govCyan transition">Servicios</a>
+        <a href="#empresas" class="hover:text-govCyan transition">Empresas Aliadas</a>
+        <button onclick="toggleSimulatorModal()" class="px-4 py-2 bg-govYellow text-govNavy font-bold rounded-lg hover:brightness-95 transition shadow-sm flex items-center gap-2">
+          <i class="fa-solid fa-mobile-screen-button"></i> Vista Preportal / iFrame
+        </button>
+      </nav>
+
+      <!-- Botón Móvil -->
+      <div class="md:hidden flex items-center space-x-2">
+        <button onclick="toggleSimulatorModal()" class="p-2 bg-govYellow text-govNavy rounded-lg text-sm font-bold">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION CON FORMULARIO DE BÚSQUEDA -->
+  <section class="hero-gradient text-white py-12 md:py-20 px-4 relative">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-8">
+        <span class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+          Red Oficial de Terminales Terrestres
+        </span>
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
+          Viaja Seguro por Toda Colombia
+        </h1>
+        <p class="text-blue-100 text-sm md:text-base max-w-2xl mx-auto">
+          Consulta horarios, destinos y adquiere tus pasajes directamente desde las terminales Salitre, Norte y Sur.
+        </p>
+      </div>
+
+      <!-- MOTOR DE BÚSQUEDA DE TIQUETES -->
+      <div id="buscador" class="bg-white rounded-2xl shadow-2xl p-5 md:p-8 text-slate-800">
+        <div class="flex items-center justify-between border-b pb-4 mb-5">
+          <div class="flex space-x-4">
+            <button class="font-bold text-govNavy border-b-2 border-govNavy pb-2 text-sm md:text-base flex items-center gap-2">
+              <i class="fa-solid fa-ticket text-govCyan"></i> Rutas Nacionales
+            </button>
+            <button class="font-semibold text-slate-400 hover:text-slate-600 pb-2 text-sm md:text-base flex items-center gap-2">
+              <i class="fa-solid fa-clock-rotate-left"></i> Estado de Salidas
+            </button>
+          </div>
+          <span class="text-xs bg-green-100 text-green-800 font-bold px-2 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Operación Normal
+          </span>
+        </div>
+
+        <form onsubmit="handleSearch(event)" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <!-- Terminal Origen -->
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Origen (Sede Bogotá)</label>
+            <div class="relative">
+              <i class="fa-solid fa-location-dot absolute left-3 top-3.5 text-govCyan"></i>
+              <select class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-govCyan focus:outline-none">
+                <option>Terminal Salitre (Principal)</option>
+                <option>Terminal Satélite Norte</option>
+                <option>Terminal Satélite Sur</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Destino -->
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Destino</label>
+            <div class="relative">
+              <i class="fa-solid fa-map-pin absolute left-3 top-3.5 text-govRed"></i>
+              <select class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-govCyan focus:outline-none">
+                <option>Medellín (Antioquia)</option>
+                <option>Cali (Valle del Cauca)</option>
+                <option>Bucaramanga (Santander)</option>
+                <option>Pereira / Eje Cafetero</option>
+                <option>Barranquilla / Caribe</option>
+                <option>Villavicencio (Llanos)</option>
+                <option>Tunja / Boyacá</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Fecha -->
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Fecha de Viaje</label>
+            <div class="relative">
+              <i class="fa-regular fa-calendar-days absolute left-3 top-3.5 text-govCyan"></i>
+              <input type="date" value="2026-09-23" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-govCyan focus:outline-none" />
+            </div>
+          </div>
+
+          <!-- Botón Buscar -->
+          <div class="flex items-end">
+            <button type="submit" class="w-full bg-govCyan hover:bg-sky-600 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 shadow-md flex items-center justify-center gap-2">
+              <i class="fa-solid fa-magnifying-glass"></i> Buscar Viaje
+            </button>
+          </div>
+        </form>
+
+        <!-- Resultados Mock -->
+        <div id="resultadoBusqueda" class="hidden mt-6 pt-5 border-t border-slate-100">
+          <p class="text-xs font-bold text-slate-400 uppercase mb-3">Empresas sugeridas con salida inmediata:</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="p-3 border rounded-xl flex items-center justify-between hover:border-govCyan transition">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-blue-50 text-govNavy rounded-lg font-black text-xs">RSJ</div>
+                <div>
+                  <h4 class="font-bold text-sm text-govNavy">Rápido San Jorge</h4>
+                  <span class="text-xs text-slate-500">Servicio Royal Express</span>
+                </div>
+              </div>
+              <span class="font-extrabold text-govCyan text-sm">$85.000</span>
+            </div>
+            <div class="p-3 border rounded-xl flex items-center justify-between hover:border-govCyan transition">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-blue-50 text-govNavy rounded-lg font-black text-xs">EB</div>
+                <div>
+                  <h4 class="font-bold text-sm text-govNavy">Expreso Bolivariano</h4>
+                  <span class="text-xs text-slate-500">2 Pisos VIP</span>
+                </div>
+              </div>
+              <span class="font-extrabold text-govCyan text-sm">$92.000</span>
+            </div>
+            <div class="p-3 border rounded-xl flex items-center justify-between hover:border-govCyan transition">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-blue-50 text-govNavy rounded-lg font-black text-xs">CP</div>
+                <div>
+                  <h4 class="font-bold text-sm text-govNavy">Copetran</h4>
+                  <span class="text-xs text-slate-500">Servicio Preferencial</span>
+                </div>
+              </div>
+              <span class="font-extrabold text-govCyan text-sm">$80.000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUESTRAS TRES TERMINALES -->
+  <section id="terminales" class="py-12 px-4 container mx-auto max-w-5xl">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl md:text-3xl font-black text-govNavy">Sedes Operativas en Bogotá</h2>
+      <p class="text-slate-500 text-sm">Ubicaciones oficiales con vigilancia 24/7 y servicio intermunicipal</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Salitre -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition">
+        <div class="w-12 h-12 bg-sky-100 text-govCyan rounded-xl flex items-center justify-center text-xl mb-4 font-bold">
+          <i class="fa-solid fa-building"></i>
+        </div>
+        <h3 class="font-bold text-lg text-govNavy mb-1">Terminal Salitre</h3>
+        <p class="text-xs text-slate-500 mb-4">Módulos 1 al 5 | Conexión con todas las regiones del país y rutas internacionales.</p>
+        <div class="text-xs text-slate-600 space-y-1">
+          <p><i class="fa-solid fa-map-location-dot text-govCyan mr-1"></i> Diagonal 23 No. 69 - 60</p>
+          <p><i class="fa-solid fa-shield-halved text-green-600 mr-1"></i> CAI de Policía permanente</p>
+        </div>
+      </div>
+
+      <!-- Norte -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition">
+        <div class="w-12 h-12 bg-yellow-100 text-amber-600 rounded-xl flex items-center justify-center text-xl mb-4 font-bold">
+          <i class="fa-solid fa-compass"></i>
+        </div>
+        <h3 class="font-bold text-lg text-govNavy mb-1">Satélite Norte</h3>
+        <p class="text-xs text-slate-500 mb-4">Especializada en corredores hacia Boyacá, Santanderes y la Costa Atlántica.</p>
+        <div class="text-xs text-slate-600 space-y-1">
+          <p><i class="fa-solid fa-map-location-dot text-govCyan mr-1"></i> Autopista Norte con Calle 193</p>
+          <p><i class="fa-solid fa-train text-govNavy mr-1"></i> Conexión TransMilenio Portal Norte</p>
+        </div>
+      </div>
+
+      <!-- Sur -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition">
+        <div class="w-12 h-12 bg-blue-100 text-govNavy rounded-xl flex items-center justify-center text-xl mb-4 font-bold">
+          <i class="fa-solid fa-route"></i>
+        </div>
+        <h3 class="font-bold text-lg text-govNavy mb-1">Satélite Sur</h3>
+        <p class="text-xs text-slate-500 mb-4">Salidas directas al sur del país: Tolima, Huila, Valle del Cauca, Cauca y Nariño.</p>
+        <div class="text-xs text-slate-600 space-y-1">
+          <p><i class="fa-solid fa-map-location-dot text-govCyan mr-1"></i> Autopista Sur con Calle 57Q Sur</p>
+          <p><i class="fa-solid fa-train text-govNavy mr-1"></i> Conexión TransMilenio Portal Sur</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESOS RÁPIDOS / SERVICIOS -->
+  <section id="servicios" class="bg-slate-100/70 py-10 px-4 mt-auto">
+    <div class="container mx-auto max-w-5xl">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div class="p-4 bg-white rounded-xl shadow-sm hover:translate-y-[-2px] transition cursor-pointer">
+          <i class="fa-solid fa-wifi text-2xl text-govCyan mb-2"></i>
+          <h4 class="font-bold text-xs md:text-sm text-govNavy">WiFi Gratuito</h4>
+          <p class="text-[11px] text-slate-400">En salas de espera</p>
+        </div>
+        <div class="p-4 bg-white rounded-xl shadow-sm hover:translate-y-[-2px] transition cursor-pointer">
+          <i class="fa-solid fa-square-parking text-2xl text-govNavy mb-2"></i>
+          <h4 class="font-bold text-xs md:text-sm text-govNavy">Parqueaderos</h4>
+          <p class="text-[11px] text-slate-400">Tarifas y cupos en vivo</p>
+        </div>
+        <div class="p-4 bg-white rounded-xl shadow-sm hover:translate-y-[-2px] transition cursor-pointer">
+          <i class="fa-solid fa-box-open text-2xl text-amber-500 mb-2"></i>
+          <h4 class="font-bold text-xs md:text-sm text-govNavy">Guardaequipajes</h4>
+          <p class="text-[11px] text-slate-400">Custodia segura 24h</p>
+        </div>
+        <div class="p-4 bg-white rounded-xl shadow-sm hover:translate-y-[-2px] transition cursor-pointer">
+          <i class="fa-solid fa-paw text-2xl text-green-600 mb-2"></i>
+          <h4 class="font-bold text-xs md:text-sm text-govNavy">Viaje con Mascotas</h4>
+          <p class="text-[11px] text-slate-400">Normativa y requisitos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER INSTITUCIONAL -->
+  <footer class="bg-govNavy text-white py-8 px-4 text-xs">
+    <div class="container mx-auto max-w-5xl flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="text-center md:text-left">
+        <p class="font-bold text-sm">Terminal de Transporte S.A.</p>
+        <p class="text-slate-400">Diagonal 23 No. 69 - 60, Bogotá D.C., Colombia</p>
+        <p class="text-slate-400">Línea de atención: (601) 423 3600 | contacto@terminaldetransporte.gov.co</p>
+      </div>
+      <div class="flex items-center space-x-3 text-lg text-slate-300">
+        <a href="#" class="hover:text-govYellow"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="hover:text-govYellow"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="hover:text-govYellow"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-govYellow"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL DE SIMULACIÓN DE IFRAME / DISPOSITIVO (Para GitHub Pages) -->
+  <div id="simulatorModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- Header del Simulador -->
+      <div class="bg-slate-800 text-white px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+          <span class="text-xs font-mono text-slate-300 ml-2">Simulador de iFrame / Preportal Cautivo</span>
+        </div>
+        <button onclick="toggleSimulatorModal()" class="text-slate-400 hover:text-white text-sm font-bold">
+          <i class="fa-solid fa-xmark"></i> Cerrar
+        </button>
+      </div>
+
+      <!-- Controles de Prueba -->
+      <div class="bg-slate-100 p-3 border-b flex flex-wrap gap-2 items-center justify-between text-xs">
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-slate-600">Dispositivo:</span>
+          <button onclick="setSimWidth('375px')" class="px-2.5 py-1 bg-white border rounded font-semibold hover:bg-slate-50">Móvil (375px)</button>
+          <button onclick="setSimWidth('768px')" class="px-2.5 py-1 bg-white border rounded font-semibold hover:bg-slate-50">Tablet (768px)</button>
+          <button onclick="setSimWidth('100%')" class="px-2.5 py-1 bg-white border rounded font-semibold hover:bg-slate-50">Completo (100%)</button>
+        </div>
+        <span class="text-[11px] text-slate-500 italic">*Listo para incrustar con &lt;iframe src="index.html"&gt;</span>
+      </div>
+
+      <!-- Contenedor iFrame Simulado -->
+      <div class="bg-slate-200 p-4 flex-1 overflow-auto flex justify-center items-center min-h-[420px]">
+        <div id="simulatedFrameWrapper" class="w-[375px] h-[580px] bg-white rounded-3xl shadow-xl border-4 border-slate-700 overflow-hidden flex flex-col transition-all duration-300">
+          <!-- Notch Móvil -->
+          <div class="bg-slate-800 h-5 w-full flex justify-center items-center">
+            <div class="w-16 h-2 bg-slate-900 rounded-full"></div>
+          </div>
+          <!-- Pantalla Preportal -->
+          <div class="flex-1 overflow-y-auto p-4 flex flex-col items-center justify-between text-center bg-gradient-to-b from-blue-50 to-white">
+            <div class="w-full">
+              <!-- Logo Mini -->
+              <div class="inline-block bg-govNavy text-white p-3 rounded-2xl shadow mb-2">
+                <i class="fa-solid fa-bus text-2xl text-govYellow"></i>
+              </div>
+              <h4 class="font-black text-govNavy text-base leading-tight">RÁPIDO SAN JORGE</h4>
+              <p class="text-[10px] text-govCyan font-bold tracking-widest uppercase mb-4">Transporte Terrestre Nacional</p>
+
+              <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 mb-4">
+                <h5 class="text-xs font-bold text-slate-700 mb-1">Bienvenido a bordo</h5>
+                <p class="text-[11px] text-slate-500">Selecciona una opción para activar tu conexión a internet durante el trayecto.</p>
+              </div>
+
+              <!-- Botones de Acción del Preportal -->
+              <div class="space-y-2.5 w-full">
+                <button class="w-full py-2.5 px-3 bg-govCyan hover:bg-sky-600 text-white font-bold rounded-xl text-xs shadow flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-wifi"></i> Navegar Gratis (30 min)
+                </button>
+                <button class="w-full py-2.5 px-3 bg-govNavy hover:bg-blue-900 text-white font-bold rounded-xl text-xs shadow flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-ticket"></i> Tengo un Código / Tiquete
+                </button>
+                <button class="w-full py-2 px-3 border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl text-xs flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-globe text-govCyan"></i> Visitar Terminal Oficial
+                </button>
+              </div>
+            </div>
+
+            <!-- Footer Preportal -->
+            <div class="w-full pt-4 border-t border-slate-200 mt-4 text-[10px] text-slate-400">
+              <label class="flex items-center justify-center gap-1.5 cursor-pointer mb-2">
+                <input type="checkbox" checked class="rounded text-govCyan focus:ring-0">
+                <span>Acepto Política de Datos (Ley 1581)</span>
+              </label>
+              <p>© Rápido San Jorge & Terminal de Bogotá</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function handleSearch(e) {
+      e.preventDefault();
+      const resultado = document.getElementById('resultadoBusqueda');
+      resultado.classList.remove('hidden');
+      resultado.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleSimulatorModal() {
+      const modal = document.getElementById('simulatorModal');
+      modal.classList.toggle('hidden');
+    }
+
+    function setSimWidth(width) {
+      const wrapper = document.getElementById('simulatedFrameWrapper');
+      wrapper.style.width = width;
+      if (width === '100%') {
+        wrapper.style.borderRadius = '0.75rem';
+        wrapper.style.borderWidth = '1px';
+      } else {
+        wrapper.style.borderRadius = '1.5rem';
+        wrapper.style.borderWidth = '4px';
+      }
+    }
+  </script>
+</body>
+</html>
